@@ -1,0 +1,155 @@
+<abp-page [title]="title | abpLocalization">
+  <abp-page-toolbar-container class="col">
+    <!--<suite-custom-code-block-0>-->
+    <!--</suite-custom-code-block-0>-->
+    <div class="text-lg-end pt-2">
+      <!--<suite-custom-code-block-1>-->
+      <!--</suite-custom-code-block-1>-->
+
+      <button
+        class="btn btn-primary btn-sm mx-2"
+        type="button"
+        [disabled]="service.isExportToExcelBusy"
+        (click)="exportToExcel()"
+      >
+        {{ '::ExportToExcel' | abpLocalization }}
+      </button>
+
+      <button
+        *abpPermission="'abp.Parts.Create'"
+        class="btn btn-primary btn-sm"
+        type="button"
+        (click)="create()"
+      >
+        <i class="fa fa-plus me-1" aria-hidden="true"></i>
+        {{ '::NewPart' | abpLocalization }}
+      </button>
+      <!--<suite-custom-code-block-2>-->
+      <!--</suite-custom-code-block-2>-->
+    </div>
+  </abp-page-toolbar-container>
+
+  <abp-advanced-entity-filters localizationSourceName="" [list]="list">
+    @if (service.filters; as filters) {
+    <abp-advanced-entity-filters-form>
+      <form #filterForm (keyup.enter)="list.get()">
+        <!--<suite-custom-code-block-3>-->
+        <!--</suite-custom-code-block-3>-->
+        <div class="row">
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="nameFilter">
+                {{ '::name' | abpLocalization }}
+              </label>
+
+              <input
+                id="nameFilter"
+                class="form-control"
+                [(ngModel)]="filters.name"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minnumber">
+                {{ '::Minnumber' | abpLocalization }}
+              </label>
+
+              <input
+                id="minnumber"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.numberMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxnumber">
+                {{ '::Maxnumber' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxnumber"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.numberMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto align-self-end mb-3">
+            <div class="row">
+              <div class="col-6 col-sm-auto d-grid">
+                <button type="button" class="btn btn-outline-primary" (click)="clearFilters()">
+                  <span>{{ 'AbpUi::Clear' | abpLocalization }}</span>
+                </button>
+              </div>
+              <div class="col-6 col-sm-auto d-grid">
+                <button type="button" class="btn btn-primary" (click)="list.get()">
+                  <span>{{ 'AbpUi::Refresh' | abpLocalization }}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--<suite-custom-code-block-4>-->
+        <!--</suite-custom-code-block-4>-->
+      </form>
+    </abp-advanced-entity-filters-form>
+    }
+  </abp-advanced-entity-filters>
+  <!--<suite-custom-code-block-5>-->
+  <!--</suite-custom-code-block-5>-->
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      @if (service.selectedCount() > 0) {
+      <h4 class="card-title">
+        {{
+          '::AllItemsAreSelected'
+            | abpLocalization
+              : (service.allSelected() ? service.data.totalCount : service.selectedCount())
+        }}
+      </h4>
+
+      <div>
+        <button class="btn btn-outline-primary btn-sm" (click)="service.selectAll()">
+          @if (service.allSelected()) {
+          {{ '::ClearSelection' | abpLocalization }}
+          } @else {
+          {{ '::SelectAllItems' | abpLocalization : service.data.totalCount }}
+          }
+        </button>
+
+        <button class="btn btn-danger btn-sm mx-1" (click)="service.bulkDelete()">
+          <i class="fa fa-trash me-1" aria-hidden="true"></i>
+          {{ 'AbpUi::Delete' | abpLocalization : service.selectedCount() }}
+        </button>
+      </div>
+      }
+    </div>
+
+    <!--<suite-custom-code-block-6>-->
+    <!--</suite-custom-code-block-6>-->
+    <div class="card-body">
+      <default-grid
+        [gridData]="service.data.items"
+        [gridColumns]="gridColumns"
+        [onAdd]="create()"
+      />
+    </div>
+  </div>
+  <!--<suite-custom-code-block-11>-->
+  <!--</suite-custom-code-block-11>-->
+</abp-page>
+<!--<suite-custom-code-block-12>-->
+<!--</suite-custom-code-block-12>-->
+
+@defer (when serviceDetail.isVisible) { @if (serviceDetail.isVisible) {
+<app-part-detail-modal />
+} }

@@ -1,0 +1,12 @@
+global:
+  hosts:
+    dbmigrator: "[RELEASE_NAME]-dbmigrator"
+    httpapi: "[RELEASE_NAME]-httpapihost"
+    angular: "[RELEASE_NAME]-angular"
+  connectionStrings:
+    default: "Host=[RELEASE_NAME]-postgresql;Port=5432;Database=abp;User ID=postgres;Password=myPassword;"
+  dotnetEnvironment: "Staging"
+  disablePII: "false"
+  stringEncryptionDefaultPassPhrase: "Q9rY54EVWE0COO6P"
+  abpStudioClient:
+    isLinkEnabled: "true"

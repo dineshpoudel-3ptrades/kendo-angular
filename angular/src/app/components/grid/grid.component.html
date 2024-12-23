@@ -1,0 +1,69 @@
+<kendo-grid
+  [kendoGridBinding]="gridData"
+  [sortable]="sortable"
+  [filterable]="filterable"
+  [pageSize]="pageSize"
+  [pageable]="pageable"
+  [height]="height"
+  [groupable]="groupable"
+  (edit)="editHandler($event)"
+  (remove)="removeHandler($event)"
+  (add)="onAdd()"
+>
+  <ng-template kendoGridToolbarTemplate>
+    <button
+      class="add-new"
+      style="background-color: rgb(51, 51, 187)"
+      [style]="{ color: 'white' }"
+      kendoGridAddCommand
+      (click)="onAdd()"
+    >
+      Add new
+    </button>
+    <button class="pdf-export" kendoGridPDFCommand [svgIcon]="filePdfIcon">Export to PDF</button>
+    <button class="excel-export" type="button" kendoGridExcelCommand [svgIcon]="fileExcelIcon">
+      Export to Excel
+    </button>
+  </ng-template>
+  <kendo-grid-column
+    *ngFor="let column of gridColumns"
+    [field]="column.field"
+    [width]="column.width"
+  >
+  </kendo-grid-column>
+
+  <kendo-grid-command-column title="command" [width]="220">
+    <ng-template kendoGridCellTemplate>
+      <button
+        style="background-color: rgb(51, 51, 187)"
+        [style]="{ color: 'white', border: 'none' }"
+        class="edit"
+        kendoGridEditCommand
+        [primary]="true"
+        (click)="onEdit()"
+      >
+        Edit
+      </button>
+      <button kendoGridRemoveCommand (click)="onDelete()">Delete</button>
+    </ng-template>
+  </kendo-grid-command-column>
+
+  <kendo-grid-pdf
+    fileName="Products.pdf"
+    [allPages]="true"
+    paperSize="A4"
+    [repeatHeaders]="true"
+    [landscape]="true"
+  >
+    <kendo-grid-pdf-margin top="2cm" left="1cm" right="1cm" bottom="2cm"></kendo-grid-pdf-margin>
+    <ng-template kendoGridPDFTemplate let-pageNum="pageNum" let-totalPages="totalPages">
+      <div class="page-template">
+        <div class="header">
+          <div style="float: right">Page {{ pageNum }} of {{ totalPages }}</div>
+          Multi-page grid with automatic page breaking
+        </div>
+        <div class="footer">Page {{ pageNum }} of {{ totalPages }}</div>
+      </div>
+    </ng-template>
+  </kendo-grid-pdf>
+</kendo-grid>

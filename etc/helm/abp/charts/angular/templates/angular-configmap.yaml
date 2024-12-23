@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-configmap
+data:
+  dynamic-env.json: |-
+    {
+        "production": "true",
+        "application": {
+            "baseUrl": "{{ include "abp.hosts.angular" . }}",
+            "name": "abp",
+            "logoUrl": ""
+        },
+        "oAuthConfig": {
+            "issuer": "{{ include "abp.hosts.httpapi" . }}",
+            "redirectUri": "{{ include "abp.hosts.angular" . }}",
+            "requireHttps": "true",
+            "clientId": "abp_App",
+            "responseType": "code",
+            "scope": "offline_access abp",
+            "strictDiscoveryDocumentValidation": false,
+            "skipIssuerCheck": true
+        },
+        "apis": {
+            "default": {
+                "url": "{{ include "abp.hosts.httpapi" . }}",
+                "rootNamespace": "abp"
+            }
+        }
+    }
