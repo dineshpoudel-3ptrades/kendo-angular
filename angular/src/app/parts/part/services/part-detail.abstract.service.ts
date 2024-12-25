@@ -53,8 +53,12 @@ export abstract class AbstractPartDetailViewService {
     this.showForm();
   }
 
-  update(record: PartDto) {
-    this.selected = record;
+  update(record: any) {
+    if (record.dataItem) {
+      this.selected = record.dataItem;
+    } else {
+      this.selected = record;
+    }
     this.showForm();
   }
 
@@ -69,7 +73,7 @@ export abstract class AbstractPartDetailViewService {
 
     const request = this.createRequest().pipe(
       finalize(() => (this.isBusy = false)),
-      tap(() => this.hideForm()),
+      tap(() => this.hideForm())
     );
 
     request.subscribe(this.list.get);

@@ -1,0 +1,16 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">Title :{{ title }}</h4>
+  </div>
+  <div class="card-body">
+    <p>Number: {{ number }}</p>
+  </div>
+  <div class="action-buttons">
+    <button class="bg-primary" (click)="editHandler(item)">
+      <i class="fa fa-pencil"></i>
+    </button>
+    <button class="bg-secondary" (click)="removeHandler(item)">
+      <i class="fa fa-trash"></i>
+    </button>
+  </div>
+</div>

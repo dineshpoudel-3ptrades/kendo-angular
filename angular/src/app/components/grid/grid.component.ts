@@ -22,8 +22,9 @@ export class GridComponent {
   @Input() pageable = true;
   @Input() groupable = false;
 
-  @Input() removeHandler: (dataItem: any) => void = () => {};
-  @Input() editHandler: (dataItem: any) => void = () => {};
+  @Input() removeHandler(dataItem: any) {}
+  @Input() editHandler!: (record: any) => void;
+
   @Input() onAdd: () => void = () => {};
 
   public filePdfIcon: SVGIcon = filePdfIcon;

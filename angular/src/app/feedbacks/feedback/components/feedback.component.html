@@ -31,77 +31,77 @@
 
   <abp-advanced-entity-filters localizationSourceName="" [list]="list">
     @if (service.filters; as filters) {
-      <abp-advanced-entity-filters-form>
-        <form #filterForm (keyup.enter)="list.get()">
-          <!--<suite-custom-code-block-3>-->
-          <!--</suite-custom-code-block-3>-->
-          <div class="row">
-            <div class="col-12 col-sm-auto">
-              <div class="mb-3">
-                <label class="form-label" for="nameFilter">
-                  {{ '::name' | abpLocalization }}
-                </label>
+    <abp-advanced-entity-filters-form>
+      <form #filterForm (keyup.enter)="list.get()">
+        <!--<suite-custom-code-block-3>-->
+        <!--</suite-custom-code-block-3>-->
+        <div class="row">
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="nameFilter">
+                {{ '::name' | abpLocalization }}
+              </label>
 
-                <input
-                  id="nameFilter"
-                  class="form-control"
-                  [(ngModel)]="filters.name"
-                  [ngModelOptions]="{ standalone: true }"
-                />
-              </div>
+              <input
+                id="nameFilter"
+                class="form-control"
+                [(ngModel)]="filters.name"
+                [ngModelOptions]="{ standalone: true }"
+              />
             </div>
+          </div>
 
-            <div class="col-12 col-sm-auto">
-              <div class="mb-3">
-                <label class="form-label" for="minnumber">
-                  {{ '::Minnumber' | abpLocalization }}
-                </label>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minnumber">
+                {{ '::Minnumber' | abpLocalization }}
+              </label>
 
-                <input
-                  id="minnumber"
-                  type="number"
-                  class="form-control"
-                  [(ngModel)]="filters.numberMin"
-                  [ngModelOptions]="{ standalone: true }"
-                />
-              </div>
+              <input
+                id="minnumber"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.numberMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
             </div>
+          </div>
 
-            <div class="col-12 col-sm-auto">
-              <div class="mb-3">
-                <label class="form-label" for="maxnumber">
-                  {{ '::Maxnumber' | abpLocalization }}
-                </label>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxnumber">
+                {{ '::Maxnumber' | abpLocalization }}
+              </label>
 
-                <input
-                  id="maxnumber"
-                  type="number"
-                  class="form-control"
-                  [(ngModel)]="filters.numberMax"
-                  [ngModelOptions]="{ standalone: true }"
-                />
-              </div>
+              <input
+                id="maxnumber"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.numberMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
             </div>
+          </div>
 
-            <div class="col-12 col-sm-auto align-self-end mb-3">
-              <div class="row">
-                <div class="col-6 col-sm-auto d-grid">
-                  <button type="button" class="btn btn-outline-primary" (click)="clearFilters()">
-                    <span>{{ 'AbpUi::Clear' | abpLocalization }}</span>
-                  </button>
-                </div>
-                <div class="col-6 col-sm-auto d-grid">
-                  <button type="button" class="btn btn-primary" (click)="list.get()">
-                    <span>{{ 'AbpUi::Refresh' | abpLocalization }}</span>
-                  </button>
-                </div>
+          <div class="col-12 col-sm-auto align-self-end mb-3">
+            <div class="row">
+              <div class="col-6 col-sm-auto d-grid">
+                <button type="button" class="btn btn-outline-primary" (click)="clearFilters()">
+                  <span>{{ 'AbpUi::Clear' | abpLocalization }}</span>
+                </button>
+              </div>
+              <div class="col-6 col-sm-auto d-grid">
+                <button type="button" class="btn btn-primary" (click)="list.get()">
+                  <span>{{ 'AbpUi::Refresh' | abpLocalization }}</span>
+                </button>
               </div>
             </div>
           </div>
-          <!--<suite-custom-code-block-4>-->
-          <!--</suite-custom-code-block-4>-->
-        </form>
-      </abp-advanced-entity-filters-form>
+        </div>
+        <!--<suite-custom-code-block-4>-->
+        <!--</suite-custom-code-block-4>-->
+      </form>
+    </abp-advanced-entity-filters-form>
     }
   </abp-advanced-entity-filters>
   <!--<suite-custom-code-block-5>-->
@@ -109,28 +109,28 @@
   <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
       @if (service.selectedCount() > 0) {
-        <h4 class="card-title">
-          {{
-            '::AllItemsAreSelected'
-              | abpLocalization
-                : (service.allSelected() ? service.data.totalCount : service.selectedCount())
-          }}
-        </h4>
+      <h4 class="card-title">
+        {{
+          '::AllItemsAreSelected'
+            | abpLocalization
+              : (service.allSelected() ? service.data.totalCount : service.selectedCount())
+        }}
+      </h4>
 
-        <div>
-          <button class="btn btn-outline-primary btn-sm" (click)="service.selectAll()">
-            @if (service.allSelected()) {
-              {{ '::ClearSelection' | abpLocalization }}
-            } @else {
-              {{ '::SelectAllItems' | abpLocalization: service.data.totalCount }}
-            }
-          </button>
+      <div>
+        <button class="btn btn-outline-primary btn-sm" (click)="service.selectAll()">
+          @if (service.allSelected()) {
+          {{ '::ClearSelection' | abpLocalization }}
+          } @else {
+          {{ '::SelectAllItems' | abpLocalization : service.data.totalCount }}
+          }
+        </button>
 
-          <button class="btn btn-danger btn-sm mx-1" (click)="service.bulkDelete()">
-            <i class="fa fa-trash me-1" aria-hidden="true"></i>
-            {{ 'AbpUi::Delete' | abpLocalization: service.selectedCount() }}
-          </button>
-        </div>
+        <button class="btn btn-danger btn-sm mx-1" (click)="service.bulkDelete()">
+          <i class="fa fa-trash me-1" aria-hidden="true"></i>
+          {{ 'AbpUi::Delete' | abpLocalization : service.selectedCount() }}
+        </button>
+      </div>
       }
     </div>
 
@@ -165,12 +165,12 @@
             let-selectFn="selectFn"
           >
             @if (service.data.items.length > 0) {
-              <input
-                type="checkbox"
-                class="form-check-input"
-                [checked]="allRowsSelected"
-                (change)="selectFn(!allRowsSelected)"
-              />
+            <input
+              type="checkbox"
+              class="form-check-input"
+              [checked]="allRowsSelected"
+              (change)="selectFn(!allRowsSelected)"
+            />
             }
           </ng-template>
           <ng-template
@@ -245,8 +245,6 @@
 <!--<suite-custom-code-block-12>-->
 <!--</suite-custom-code-block-12>-->
 
-@defer (when serviceDetail.isVisible) {
-  @if (serviceDetail.isVisible) {
-    <app-feedback-detail-modal />
-  }
-}
+@defer (when serviceDetail.isVisible) { @if (serviceDetail.isVisible) {
+<app-feedback-detail-modal />
+} }

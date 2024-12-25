@@ -1,0 +1,23 @@
+.filter-view {
+  display: flex;
+}
+
+.filter-bar {
+  height: 100%;
+  overflow: hidden;
+  width: 20%;
+  background-color: white;
+  padding: 10px;
+}
+.default-filter {
+  .card-body {
+    background-color: white;
+    padding: 0px;
+    margin: 0%;
+    width: 50px;
+  }
+}
+
+.filter-content {
+  width: 80%;
+}

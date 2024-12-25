@@ -1,0 +1,10 @@
+<div class="card-view w-full">
+  <app-card
+    *ngFor="let item of items"
+    [title]="item.name"
+    [number]="item.number"
+    [editHandler]="onEdit"
+    [deleteHandler]="onDelete"
+    [item]="item"
+  ></app-card>
+</div>

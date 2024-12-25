@@ -44,12 +44,13 @@ export abstract class AbstractPartViewService {
     return request.pipe(finalize(this.list.get));
   }
 
-  delete(record: PartDto) {
+  delete(record: any) {
+    console.log(record);
     this.confirmationService
       .warn('::DeleteConfirmationMessage', '::AreYouSure', { messageLocalizationParams: [] })
       .pipe(
         filter(status => status === Confirmation.Status.confirm),
-        switchMap(() => this.proxyService.delete(record.id)),
+        switchMap(() => this.proxyService.delete(record.dataItem?.id ?? record.id))
       )
       .subscribe(this.list.get);
   }
@@ -75,7 +76,7 @@ export abstract class AbstractPartViewService {
       })
       .pipe(
         filter(result => result === Confirmation.Status.confirm),
-        switchMap(() => this.bulkDeleteRequest()),
+        switchMap(() => this.bulkDeleteRequest())
       )
       .subscribe();
   }
@@ -143,9 +144,9 @@ export abstract class AbstractPartViewService {
             downloadToken: token,
             filterText: this.list.filter,
             ...this.filters,
-          }),
+          })
         ),
-        finalize(() => (this.isExportToExcelBusy = false)),
+        finalize(() => (this.isExportToExcelBusy = false))
       )
       .subscribe(result => {
         this.abpWindowService.downloadBlob(result, 'Part.xlsx');

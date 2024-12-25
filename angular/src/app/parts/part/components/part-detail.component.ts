@@ -11,6 +11,7 @@ import {
   NgbTimeAdapter,
 } from '@ng-bootstrap/ng-bootstrap';
 import { PartDetailViewService } from '../services/part-detail.service';
+import { GridComponent } from 'src/app/components/grid/grid.component';
 
 @Component({
   selector: 'app-part-detail-modal',
