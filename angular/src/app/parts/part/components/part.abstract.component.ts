@@ -17,13 +17,20 @@ export abstract class AbstractPartComponent implements OnInit {
   public readonly service = inject(PartViewService);
   public readonly serviceDetail = inject(PartDetailViewService);
   protected title = '::Parts';
+  public gridFilter;
+  public skip = 0;
+  public count = 5;
 
   ngOnInit() {
-    this.service.hookToQuery();
+    this.service.hookToQuery(this.gridFilter, this.count, this.skip);
+    this.service.filter();
   }
 
   clearFilters() {
     this.service.clearFilters();
+  }
+  filter() {
+    this.service.filter();
   }
 
   showForm() {

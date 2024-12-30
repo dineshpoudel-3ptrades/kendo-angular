@@ -1,14 +1,23 @@
+<app-breadcrumb />
+
 <kendo-grid
-  [kendoGridBinding]="gridData"
+  [data]="data"
+  [loading]="service.loading"
   [sortable]="sortable"
   [filterable]="filterable"
-  [pageSize]="pageSize"
+  [pageSize]="state.take"
+  [skip]="state.skip"
   [pageable]="pageable"
+  [filter]="state.filter"
+  [group]="state.group"
   [height]="height"
   [groupable]="groupable"
+  [selectable]="true"
+  (selectionChange)="onSelectionChange($event)"
   (edit)="editHandler($event)"
   (remove)="removeHandler($event)"
   (add)="onAdd()"
+  (dataStateChange)="onDataStateChange($event)"
 >
   <ng-template kendoGridToolbarTemplate>
     <button
@@ -29,24 +38,17 @@
     *ngFor="let column of gridColumns"
     [field]="column.field"
     [width]="column.width"
+    [format]="column.format"
+    [filter]="column.filter"
   >
   </kendo-grid-column>
 
-  <kendo-grid-command-column title="command" [width]="220">
-    <ng-template kendoGridCellTemplate>
-      <button
-        style="background-color: rgb(51, 51, 187)"
-        [style]="{ color: 'white', border: 'none' }"
-        class="edit"
-        kendoGridEditCommand
-        [primary]="true"
-        (click)="onEdit()"
-      >
-        Edit
-      </button>
-      <button kendoGridRemoveCommand>Delete</button>
+  <kendo-grid-column field="dob" format="d">
+    <ng-template kendoGridFilterCellTemplate let-filter>
+      <date-range-filter-cell class="date-range-filter" [filter]="filter" field="dob">
+      </date-range-filter-cell>
     </ng-template>
-  </kendo-grid-command-column>
+  </kendo-grid-column>
 
   <kendo-grid-pdf
     fileName="Products.pdf"

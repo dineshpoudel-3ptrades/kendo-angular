@@ -1,3 +1,4 @@
+using abp.Tests;
 using abp.Parts;
 using abp.Feedbacks;
 using System;
@@ -57,6 +58,8 @@ public class abpEntityFrameworkCoreModule : AbpModule
             options.AddRepository<Feedback, Feedbacks.EfCoreFeedbackRepository>();
 
             options.AddRepository<Part, Parts.EfCorePartRepository>();
+
+            options.AddRepository<Test, Tests.EfCoreTestRepository>();
 
         });
 

@@ -1,0 +1,225 @@
+<abp-page [title]="title | abpLocalization">
+  <abp-page-toolbar-container class="col">
+    <div class="text-lg-end pt-2">
+      <ng-container *ngIf="selectedView === 'List'">
+        <button
+          class="btn btn-primary btn-sm mx-2"
+          type="button"
+          [disabled]="service.isExportToExcelBusy"
+          (click)="exportToExcel()"
+        >
+          {{ '::ExportToExcel' | abpLocalization }}
+        </button>
+      </ng-container>
+      <ng-container *ngIf="selectedView === 'List'">
+        <button
+          *abpPermission="'abp.Tests.Create'"
+          class="btn btn-primary btn-sm mx-1"
+          type="button"
+          (click)="create()"
+        >
+          <i class="fa fa-plus me-1" aria-hidden="true"></i>
+          {{ '::NewTest' | abpLocalization }}
+        </button>
+      </ng-container>
+
+      <button class="btn btn-secondary btn-sm mx-1" type="button" (click)="viewSelector('List')">
+        <i class="fa fa-list me-1" aria-hidden="true"></i>
+      </button>
+      <button class="btn btn-primary btn-sm mx-1" type="button" (click)="viewSelector('Grid')">
+        <i class="fa fa-gear" aria-hidden="true"></i>
+      </button>
+    </div>
+  </abp-page-toolbar-container>
+  <!-- <abp-advanced-entity-filters
+    localizationSourceName=""
+    [list]="list"
+    class="default-filter"
+    *ngIf="selectedView === 'List'"
+  >
+  </abp-advanced-entity-filters> -->
+
+  <div *ngIf="selectedView === 'List'" class="filter-view">
+    <div class="filter-bar">
+      @if (service.filters; as filters) {
+      <abp-advanced-entity-filters-form>
+        <form #filterForm (keyup.enter)="list.get()">
+          <!--<suite-custom-code-block-3>-->
+          <!--</suite-custom-code-block-3>-->
+          <div class="row">
+            <div class="col-12 col-sm-auto">
+              <div class="mb-3">
+                <label class="form-label" for="nameFilter">
+                  {{ '::name' | abpLocalization }}
+                </label>
+
+                <input
+                  id="nameFilter"
+                  class="form-control"
+                  [(ngModel)]="filters.name"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-auto">
+              <div class="mb-3">
+                <label class="form-label" for="minAge">
+                  {{ '::MinAge' | abpLocalization }}
+                </label>
+
+                <input
+                  id="minAge"
+                  type="number"
+                  class="form-control"
+                  [(ngModel)]="filters.ageMin"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-auto">
+              <div class="mb-3">
+                <label class="form-label" for="maxAge">
+                  {{ '::MaxAge' | abpLocalization }}
+                </label>
+
+                <input
+                  id="maxAge"
+                  type="number"
+                  class="form-control"
+                  [(ngModel)]="filters.ageMax"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-auto">
+              <div class="mb-3">
+                <label class="form-label" for="minDOB">
+                  {{ '::MinDOB' | abpLocalization }}
+                </label>
+
+                <div class="input-group" validationTarget>
+                  <input
+                    id="minDOB"
+                    class="form-control"
+                    #minDOBInput
+                    #minDOBDatepicker="ngbDatepicker"
+                    name="minDOB"
+                    ngbDatepicker
+                    container="body"
+                    readonly
+                    (click)="minDOBDatepicker.toggle()"
+                    (keyup.space)="minDOBDatepicker.toggle()"
+                    [(ngModel)]="filters.dobMin"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                  @if (minDOBInput.value) {
+                  <div class="input-group-append">
+                    <button
+                      class="btn btn-link px-2"
+                      type="button"
+                      [title]="'AbpUi::Clear' | abpLocalization"
+                      (click)="
+                        minDOBDatepicker.writeValue(null);
+                        minDOBDatepicker.manualDateChange(null, true)
+                      "
+                    >
+                      <i class="fa fa-times" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                  }
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-auto">
+              <div class="mb-3">
+                <label class="form-label" for="maxDOB">
+                  {{ '::MaxDOB' | abpLocalization }}
+                </label>
+
+                <div class="input-group" validationTarget>
+                  <input
+                    id="maxDOB"
+                    class="form-control"
+                    #maxDOBInput
+                    #maxDOBDatepicker="ngbDatepicker"
+                    name="maxDOB"
+                    ngbDatepicker
+                    readonly
+                    (click)="maxDOBDatepicker.toggle()"
+                    (keyup.space)="maxDOBDatepicker.toggle()"
+                    [(ngModel)]="filters.dobMax"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                  @if (maxDOBInput.value) {
+                  <div class="input-group-append">
+                    <button
+                      class="btn btn-link px-2"
+                      type="button"
+                      [title]="'AbpUi::Clear' | abpLocalization"
+                      (click)="
+                        maxDOBDatepicker.writeValue(null);
+                        maxDOBDatepicker.manualDateChange(null, true)
+                      "
+                    >
+                      <i class="fa fa-times" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                  }
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-auto align-self-end mb-3">
+              <div class="row">
+                <div class="col-6 col-sm-auto d-grid">
+                  <button type="button" class="btn btn-outline-primary" (click)="clearFilters()">
+                    <span>{{ 'AbpUi::Clear' | abpLocalization }}</span>
+                  </button>
+                </div>
+                <div class="col-6 col-sm-auto d-grid">
+                  <button type="button" class="btn btn-primary" (click)="list.get()">
+                    <span>{{ 'AbpUi::Refresh' | abpLocalization }}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--<suite-custom-code-block-4>-->
+          <!--</suite-custom-code-block-4>-->
+        </form>
+      </abp-advanced-entity-filters-form>
+      }
+    </div>
+
+    <div class="filter-content">
+      <app-card-view
+        [items]="service.data.items"
+        [onEdit]="update.bind(this)"
+        [onDelete]="delete.bind(this)"
+      ></app-card-view>
+    </div>
+  </div>
+
+  <div class="card">
+    <div *ngIf="selectedView === 'Grid'">
+      <default-grid
+        [gridData]="service.data.items"
+        [gridColumns]="gridColumns"
+        [onAdd]="create.bind(this)"
+        [editHandler]="update.bind(this)"
+        [removeHandler]="delete.bind(this)"
+        [list]="list"
+        [service]="service"
+        [dataStateChange]="dataStateChange"
+      />
+    </div>
+  </div>
+</abp-page>
+
+@defer (when serviceDetail.isVisible) { @if (serviceDetail.isVisible) {
+<app-test-detail-modal />
+} }

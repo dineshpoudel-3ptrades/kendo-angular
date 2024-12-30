@@ -5,6 +5,7 @@ import { ABP, AbpWindowService, ListService, PagedResultDto } from '@abp/ng.core
 import { filter, switchMap, finalize } from 'rxjs/operators';
 import type { GetPartsInput, PartDto } from '../../../proxy/parts/models';
 import { PartService } from '../../../proxy/parts/part.service';
+import { query } from '@angular/animations';
 
 export abstract class AbstractPartViewService {
   protected readonly proxyService = inject(PartService);
@@ -45,7 +46,6 @@ export abstract class AbstractPartViewService {
   }
 
   delete(record: any) {
-    console.log(record);
     this.confirmationService
       .warn('::DeleteConfirmationMessage', '::AreYouSure', { messageLocalizationParams: [] })
       .pipe(
@@ -110,13 +110,25 @@ export abstract class AbstractPartViewService {
     this.selected.set(selected);
   }
 
-  hookToQuery() {
-    const getData = (query: ABP.PageQueryParams) =>
-      this.proxyService.getList({
+  getDetail(id: string) {
+    const detail = this.proxyService.get(id);
+    return detail;
+  }
+
+  hookToQuery(gridFilter?: any, count?: number, skip?: number) {
+    const getData = (query: ABP.PageQueryParams) => {
+      if (gridFilter) {
+        this.filters = gridFilter;
+      }
+
+      return this.proxyService.getList({
         ...query,
         ...this.filters,
         filterText: query.filter,
+        maxResultCount: count,
+        skipCount: skip,
       });
+    };
 
     const setData = (list: PagedResultDto<PartDto>) => {
       this.data = list;
@@ -132,6 +144,10 @@ export abstract class AbstractPartViewService {
   clearFilters() {
     this.filters = {} as GetPartsInput;
     this.list.get();
+  }
+
+  filter() {
+    const filter = this.list.query$;
   }
 
   exportToExcel() {

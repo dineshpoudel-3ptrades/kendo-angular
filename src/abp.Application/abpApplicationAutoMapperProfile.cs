@@ -1,3 +1,4 @@
+using abp.Tests;
 using abp.Parts;
 using System;
 using abp.Shared;
@@ -20,5 +21,8 @@ public class abpApplicationAutoMapperProfile : Profile
 
         CreateMap<Part, PartDto>();
         CreateMap<Part, PartExcelDto>();
+
+        CreateMap<Test, TestDto>();
+        CreateMap<Test, TestExcelDto>();
     }
 }

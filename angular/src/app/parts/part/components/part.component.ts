@@ -41,8 +41,8 @@ import { CardViewComponent } from '../../../components/card-view/card-view.compo
     CommercialUiModule,
     PartDetailModalComponent,
     GridComponent,
-    ...ChildComponentDependencies,
     CardViewComponent,
+    ...ChildComponentDependencies,
   ],
   providers: [
     ListService,
@@ -62,12 +62,23 @@ import { CardViewComponent } from '../../../components/card-view/card-view.compo
 export class PartComponent extends AbstractPartComponent {
   public gridColumns = [
     { field: 'name', header: 'Name' },
-    { field: 'number', header: 'Number' },
+    { field: 'number', header: 'Number', filter: 'numeric' },
   ];
 
-  public selectedView: 'List' | 'Grid' = 'List';
+  public dataStateChange(state: any) {
+    this.gridFilter = state;
+    this.count = state.maxResultCount;
+    this.skip = state.skipCount;
+    this.service.hookToQuery(this.gridFilter, this.count, this.skip);
+  }
+
+  public gridSelect(state: any) {
+    console.log(state);
+  }
+
+  public selectedView: 'List' | 'Grid' = 'Grid';
 
   public viewSelector(view: 'List' | 'Grid') {
-    this.selectedView = view; // Change the view
+    this.selectedView = view;
   }
 }

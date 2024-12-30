@@ -1,6 +1,7 @@
 import { authGuard, permissionGuard } from '@abp/ng.core';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DetailPageComponent } from './components/detail-page/detail-page.component';
 
 const routes: Routes = [
   {
@@ -68,6 +69,12 @@ const routes: Routes = [
     loadChildren: () => import('./feedbacks/feedback/feedback.module').then(m => m.FeedbackModule),
   },
   { path: 'parts', loadChildren: () => import('./parts/part/part.module').then(m => m.PartModule) },
+  { path: 'tests', loadChildren: () => import('./tests/test/test.module').then(m => m.TestModule) },
+  {
+    path: 'part',
+    loadChildren: () =>
+      import('./components/detail-page/detail-page.module').then(m => m.DetailPageModule),
+  },
 ];
 
 @NgModule({

@@ -23,7 +23,7 @@ export class PartService {
         url: '/api/app/parts',
         body: input,
       },
-      { apiName: this.apiName, ...config },
+      { apiName: this.apiName, ...config }
     );
 
   delete = (id: string, config?: Partial<Rest.Config>) =>
@@ -32,7 +32,7 @@ export class PartService {
         method: 'DELETE',
         url: `/api/app/parts/${id}`,
       },
-      { apiName: this.apiName, ...config },
+      { apiName: this.apiName, ...config }
     );
 
   deleteAll = (input: GetPartsInput, config?: Partial<Rest.Config>) =>
@@ -50,7 +50,7 @@ export class PartService {
           numberMax: input.numberMax,
         },
       },
-      { apiName: this.apiName, ...config },
+      { apiName: this.apiName, ...config }
     );
 
   deleteByIds = (partIds: string[], config?: Partial<Rest.Config>) =>
@@ -60,7 +60,7 @@ export class PartService {
         url: '/api/app/parts',
         params: { partIds },
       },
-      { apiName: this.apiName, ...config },
+      { apiName: this.apiName, ...config }
     );
 
   get = (id: string, config?: Partial<Rest.Config>) =>
@@ -69,7 +69,7 @@ export class PartService {
         method: 'GET',
         url: `/api/app/parts/${id}`,
       },
-      { apiName: this.apiName, ...config },
+      { apiName: this.apiName, ...config }
     );
 
   getDownloadToken = (config?: Partial<Rest.Config>) =>
@@ -78,7 +78,7 @@ export class PartService {
         method: 'GET',
         url: '/api/app/parts/download-token',
       },
-      { apiName: this.apiName, ...config },
+      { apiName: this.apiName, ...config }
     );
 
   getFile = (input: GetFileInput, config?: Partial<Rest.Config>) =>
@@ -89,7 +89,7 @@ export class PartService {
         url: '/api/app/parts/file',
         params: { downloadToken: input.downloadToken, fileId: input.fileId },
       },
-      { apiName: this.apiName, ...config },
+      { apiName: this.apiName, ...config }
     );
 
   getList = (input: GetPartsInput, config?: Partial<Rest.Config>) =>
@@ -107,7 +107,7 @@ export class PartService {
           numberMax: input.numberMax,
         },
       },
-      { apiName: this.apiName, ...config },
+      { apiName: this.apiName, ...config }
     );
 
   getListAsExcelFile = (input: PartExcelDownloadDto, config?: Partial<Rest.Config>) =>
@@ -124,7 +124,7 @@ export class PartService {
           numberMax: input.numberMax,
         },
       },
-      { apiName: this.apiName, ...config },
+      { apiName: this.apiName, ...config }
     );
 
   update = (id: string, input: PartUpdateDto, config?: Partial<Rest.Config>) =>
@@ -134,7 +134,7 @@ export class PartService {
         url: `/api/app/parts/${id}`,
         body: input,
       },
-      { apiName: this.apiName, ...config },
+      { apiName: this.apiName, ...config }
     );
 
   uploadFile = (input: FormData, config?: Partial<Rest.Config>) =>
@@ -144,7 +144,7 @@ export class PartService {
         url: '/api/app/parts/upload-file',
         body: input,
       },
-      { apiName: this.apiName, ...config },
+      { apiName: this.apiName, ...config }
     );
 
   constructor(private restService: RestService) {}

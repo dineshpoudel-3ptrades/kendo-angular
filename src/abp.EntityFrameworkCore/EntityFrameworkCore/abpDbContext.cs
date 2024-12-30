@@ -1,3 +1,4 @@
+using abp.Tests;
 using abp.Parts;
 using abp.Feedbacks;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +32,7 @@ public class abpDbContext :
     ISaasDbContext,
     IIdentityProDbContext
 {
+    public DbSet<Test> Tests { get; set; } = null!;
     public DbSet<Part> Parts { get; set; } = null!;
     public DbSet<Feedback> Feedbacks { get; set; } = null!;
     /* Add DbSet properties for your Aggregate Roots / Entities here. */
@@ -117,6 +119,18 @@ public class abpDbContext :
                 b.ConfigureByConvention();
                 b.Property(x => x.name).HasColumnName(nameof(Part.name));
                 b.Property(x => x.number).HasColumnName(nameof(Part.number));
+            });
+
+        }
+        if (builder.IsHostDatabase())
+        {
+            builder.Entity<Test>(b =>
+            {
+                b.ToTable(abpConsts.DbTablePrefix + "Tests", abpConsts.DbSchema);
+                b.ConfigureByConvention();
+                b.Property(x => x.name).HasColumnName(nameof(Test.name));
+                b.Property(x => x.Age).HasColumnName(nameof(Test.Age));
+                b.Property(x => x.DOB).HasColumnName(nameof(Test.DOB));
             });
 
         }

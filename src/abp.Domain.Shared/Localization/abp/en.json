@@ -75,6 +75,17 @@
     "Parts": "Parts",
     "NewPart": "New Part",
     "Part": "Part",
-    "Menu:Parts": "Parts"
+    "Menu:Parts": "Parts",
+    "Permission:Tests": "Tests",
+    "Tests": "Tests",
+    "NewTest": "New Test",
+    "Test": "Test",
+    "Menu:Tests": "Tests",
+    "Age": "Age",
+    "DOB": "D O B",
+    "MinAge": "Min Age",
+    "MinDOB": "Min D O B",
+    "MaxAge": "Max Age",
+    "MaxDOB": "Max D O B"
   }
 }

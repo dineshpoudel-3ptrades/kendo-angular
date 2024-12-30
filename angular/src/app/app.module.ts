@@ -49,6 +49,8 @@ import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TESTS_TEST_ROUTE_PROVIDER } from './tests/test/providers/test-route.provider';
+import { DateRangeModule, DateInputModule } from '@progress/kendo-angular-dateinputs';
 
 registerLocaleData(en);
 
@@ -69,6 +71,8 @@ registerLocaleData(en);
     AccountLayoutModule.forRoot(),
     FormsModule,
     NgbModule,
+    DateRangeModule,
+    DateInputModule,
   ],
   providers: [
     APP_ROUTE_PROVIDER,
@@ -76,7 +80,7 @@ registerLocaleData(en);
       withOptions({
         environment,
         registerLocaleFn: registerLocale(),
-      }),
+      })
     ),
     provideAbpOAuth(),
     provideIdentityConfig(),
@@ -95,13 +99,13 @@ registerLocaleData(en);
       }),
       withValidationBluePrint({
         wrongPassword: 'Please choose 1q2w3E*',
-      }),
+      })
     ),
     provideGdprConfig(
       withCookieConsentOptions({
         cookiePolicyUrl: '/gdpr-cookie-consent/cookie',
         privacyPolicyUrl: '/gdpr-cookie-consent/privacy',
-      }),
+      })
     ),
     provideLanguageManagementConfig(),
     provideSaasConfig(),
@@ -113,6 +117,7 @@ registerLocaleData(en);
     { provide: NZ_I18N, useValue: en_US },
     provideAnimationsAsync(),
     provideHttpClient(),
+    TESTS_TEST_ROUTE_PROVIDER,
   ],
   bootstrap: [AppComponent],
 })
