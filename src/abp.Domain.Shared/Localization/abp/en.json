@@ -86,6 +86,19 @@
     "MinAge": "Min Age",
     "MinDOB": "Min D O B",
     "MaxAge": "Max Age",
-    "MaxDOB": "Max D O B"
+    "MaxDOB": "Max D O B",
+    "Permission:Templates": "Templates",
+    "Templates": "Templates",
+    "NewTemplate": "New Template",
+    "Template": "Template",
+    "Menu:Templates": "Templates",
+    "description": "description",
+    "Mindescription": "Min description",
+    "Maxdescription": "Max description",
+    "Permission:TestTemplates": "Test Templates",
+    "TestTemplates": "Test Templates",
+    "NewTestTemplate": "New Test Template",
+    "TestTemplate": "Test Template",
+    "Menu:TestTemplates": "Test Templates"
   }
 }

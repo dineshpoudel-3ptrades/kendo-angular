@@ -1,3 +1,5 @@
+using abp.TestTemplates;
+using abp.Templates;
 using abp.Tests;
 using abp.Parts;
 using System;
@@ -24,5 +26,11 @@ public class abpApplicationAutoMapperProfile : Profile
 
         CreateMap<Test, TestDto>();
         CreateMap<Test, TestExcelDto>();
+
+        CreateMap<Template, TemplateDto>();
+        CreateMap<Template, TemplateExcelDto>();
+
+        CreateMap<TestTemplate, TestTemplateDto>();
+        CreateMap<TestTemplate, TestTemplateExcelDto>();
     }
 }

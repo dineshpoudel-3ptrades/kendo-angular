@@ -21,6 +21,7 @@ import {
   ChildTabDependencies,
   ChildComponentDependencies,
 } from './feedback.abstract.component';
+import { GanttChartComponent } from 'src/app/components/gantt-chart/gantt-chart.component';
 
 @Component({
   selector: 'app-feedback',
@@ -32,14 +33,13 @@ import {
     NgbDatepickerModule,
     NgbTimepickerModule,
     NgbDropdownModule,
-
     NgxValidateCoreModule,
-
     PageModule,
     CoreModule,
     ThemeSharedModule,
     CommercialUiModule,
     FeedbackDetailModalComponent,
+    GanttChartComponent,
     ...ChildComponentDependencies,
   ],
   providers: [

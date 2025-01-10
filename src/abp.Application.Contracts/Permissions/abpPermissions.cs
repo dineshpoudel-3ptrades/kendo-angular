@@ -37,4 +37,20 @@ public static class abpPermissions
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
     }
+
+    public static class Templates
+    {
+        public const string Default = GroupName + ".Templates";
+        public const string Edit = Default + ".Edit";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
+
+    public static class TestTemplates
+    {
+        public const string Default = GroupName + ".TestTemplates";
+        public const string Edit = Default + ".Edit";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
 }

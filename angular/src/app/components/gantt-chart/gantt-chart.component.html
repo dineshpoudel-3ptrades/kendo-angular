@@ -1,0 +1,55 @@
+<kendo-gantt
+  #gantt
+  [style.height.px]="500"
+  [kendoGanttHierarchyBinding]="data"
+  childrenField="subtasks"
+  [filterable]="true"
+  [sortable]="true"
+  kendoGanttExpandable
+  [initiallyExpanded]="true"
+  [dependencies]="dependencies"
+  (cellClick)="handleCellClick($event)"
+  (cellClose)="handleCellClose($event)"
+  [toolbarSettings]="{ position: position, addTaskTool: 'top' }"
+  (taskClick)="onClick($event)"
+  (save)="saveTask($event)"
+  (remove)="removeTask($event)"
+  (taskDelete)="confirm(gantt)"
+  (cancel)="cancelEditing($event)"
+  (taskAdd)="onTaskAdd($event)"
+>
+  <kendo-gantt-column
+    field="title"
+    title="Title"
+    [expandable]="true"
+    [width]="200"
+  ></kendo-gantt-column>
+  <kendo-gantt-column field="start" title="Start" [format]="dateTimeFormat" [width]="200">
+    <ng-template kendoGanttEditTemplate let-formGroup="formGroup" let-column="column">
+      <kendo-datetimepicker
+        [format]="dateTimeFormat"
+        [formControl]="formGroup.get(column.field)"
+      ></kendo-datetimepicker>
+    </ng-template>
+  </kendo-gantt-column>
+  <kendo-gantt-column field="end" title="End" [format]="dateTimeFormat" [width]="200">
+    <ng-template kendoGanttEditTemplate let-formGroup="formGroup" let-column="column">
+      <kendo-datetimepicker
+        [format]="dateTimeFormat"
+        [formControl]="formGroup.get(column.field)"
+      ></kendo-datetimepicker>
+    </ng-template>
+  </kendo-gantt-column>
+  <kendo-gantt-column
+    field="completionRatio"
+    title="Progress"
+    format="p"
+    [width]="200"
+    editor="numeric"
+  >
+  </kendo-gantt-column>
+  <kendo-gantt-timeline-day-view></kendo-gantt-timeline-day-view>
+  <kendo-gantt-timeline-week-view></kendo-gantt-timeline-week-view>
+  <kendo-gantt-timeline-month-view></kendo-gantt-timeline-month-view>
+  <kendo-gantt-timeline-year-view></kendo-gantt-timeline-year-view>
+</kendo-gantt>

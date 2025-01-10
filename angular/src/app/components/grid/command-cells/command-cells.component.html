@@ -1,0 +1,65 @@
+<td class="k-command-cell">
+  <div class="k-display-flex k-flex-wrap k-gap-2">
+    <!-- Edit Button -->
+    <button
+      *ngIf="showEditButton"
+      [title]="'Edit'"
+      class="k-button k-button-outline k-primary small"
+      [attr.data-testid]="'edit-grid-item-action'"
+      (click)="editButton?.onClick()"
+    >
+      {{ editButton?.text }}
+    </button>
+
+    <!-- Delete Button -->
+    <button
+      *ngIf="showDeleteButton"
+      style="background-color: rgb(51, 51, 187)"
+      [style]="{ color: 'white', border: 'none' }"
+      class="edit"
+      kendoGridDeleteCommand
+      (click)="onDelete()"
+    >
+      {{ deleteButton?.text }}
+    </button>
+
+    <!-- Favorite Button -->
+    <button
+      *ngIf="showFavoriteButton"
+      style="background-color: rgb(51, 51, 187)"
+      [style]="{ color: 'white', border: 'none' }"
+      class="edit"
+      kendoGridEditCommand
+      [primary]="true"
+      (click)="onEdit()"
+    >
+      Favorite
+    </button>
+
+    <!-- Preview Button -->
+    <button
+      *ngIf="showPreviewButton"
+      style="background-color: rgb(51, 51, 187)"
+      [style]="{ color: 'white', border: 'none' }"
+      class="edit"
+      kendoGridEditCommand
+      [primary]="true"
+      (click)="onEdit()"
+    >
+      Preview
+    </button>
+
+    <!-- Rollback Button -->
+    <button
+      *ngIf="showRollbackButton"
+      style="background-color: rgb(51, 51, 187)"
+      [style]="{ color: 'white', border: 'none' }"
+      class="edit"
+      kendoGridEditCommand
+      [primary]="true"
+      (click)="onEdit()"
+    >
+      {{ rollBackButton?.text }}
+    </button>
+  </div>
+</td>

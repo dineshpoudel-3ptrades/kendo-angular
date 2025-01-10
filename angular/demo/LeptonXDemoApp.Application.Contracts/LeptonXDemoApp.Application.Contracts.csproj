@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>LeptonXDemoApp</RootNamespace>
+    <IsPackable>false</IsPackable>
+    <Version></Version>
+    <CopyLocalLockFileAssemblies>True</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LeptonXDemoApp.Domain.Shared\LeptonXDemoApp.Domain.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Gdpr.Application.Contracts" Version="9.0.3" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.Application.Contracts" Version="9.0.3" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.Application.Contracts" Version="9.0.3" />
+    <PackageReference Include="Volo.Abp.SettingManagement.Application.Contracts" Version="9.0.3" />
+    <PackageReference Include="Volo.Chat.Application.Contracts" Version="9.0.3" />
+    <PackageReference Include="Volo.CmsKit.Pro.Application.Contracts" Version="9.0.3" />
+    <!--    <PackageReference Include="Volo.CmsKit.Application.Contracts" Version="5.3.0" />-->
+    <PackageReference Include="Volo.FileManagement.Application.Contracts" Version="9.0.3" />
+    <PackageReference Include="Volo.Forms.Application.Contracts" Version="9.0.3" />
+    <PackageReference Include="Volo.Saas.Host.Application.Contracts" Version="9.0.3" />
+    <PackageReference Include="Volo.Abp.AuditLogging.Application.Contracts" Version="9.0.3" />
+    <PackageReference Include="Volo.Abp.Identity.Pro.Application.Contracts" Version="9.0.3" />
+    <PackageReference Include="Volo.Abp.OpenIddict.Pro.Application.Contracts" Version="9.0.3" />
+    <PackageReference Include="Volo.Abp.Account.Pro.Public.Application.Contracts" Version="9.0.3" />
+    <PackageReference Include="Volo.Abp.Account.Pro.Admin.Application.Contracts" Version="9.0.3" />
+    <PackageReference Include="Volo.Abp.LanguageManagement.Application.Contracts" Version="9.0.3" />
+    <PackageReference Include="Volo.Abp.TextTemplateManagement.Application.Contracts" Version="9.0.3" />
+    <PackageReference Include="Volo.Abp.LeptonTheme.Management.Application.Contracts" Version="9.0.3" />
+  </ItemGroup>
+</Project>

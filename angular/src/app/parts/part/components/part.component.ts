@@ -64,21 +64,4 @@ export class PartComponent extends AbstractPartComponent {
     { field: 'name', header: 'Name' },
     { field: 'number', header: 'Number', filter: 'numeric' },
   ];
-
-  public dataStateChange(state: any) {
-    this.gridFilter = state;
-    this.count = state.maxResultCount;
-    this.skip = state.skipCount;
-    this.service.hookToQuery(this.gridFilter, this.count, this.skip);
-  }
-
-  public gridSelect(state: any) {
-    console.log(state);
-  }
-
-  public selectedView: 'List' | 'Grid' = 'Grid';
-
-  public viewSelector(view: 'List' | 'Grid') {
-    this.selectedView = view;
-  }
 }

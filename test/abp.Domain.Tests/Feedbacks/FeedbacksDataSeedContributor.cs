@@ -29,16 +29,16 @@ namespace abp.Feedbacks
 
             await _feedbackRepository.InsertAsync(new Feedback
             (
-                id: Guid.Parse("823af619-ce45-4b57-a37c-a78e18ad7210"),
-                name: "6d35dc7ae7fd4b88996c73396e3771453eea209b5119422cbfede6f4aa92794831a56029ea8e455b9d",
-                number: 655267429
+                id: Guid.Parse("8a1ce911-301c-491f-9c88-d615260ab197"),
+                name: "bc6f453113db4e65bea53979107dc6eb9b1272be8cf74",
+                number: 259
             ));
 
             await _feedbackRepository.InsertAsync(new Feedback
             (
-                id: Guid.Parse("c1a84ce7-8798-4005-9077-6f83685b82de"),
-                name: "f37f36a269ad405fbc30c88ea8bb212ada5fbd16bdd0460c89b7b5b7af2b86c58c60dd16450f48d2af734ad54798d055ad3",
-                number: 375243234
+                id: Guid.Parse("99141367-17b1-4312-bd19-bc8848d21095"),
+                name: "c36323f0ecfc40ebaeb99c3458cfe2963ff337867b4c494f9c45a",
+                number: 602
             ));
 
             await _unitOfWorkManager!.Current!.SaveChangesAsync();

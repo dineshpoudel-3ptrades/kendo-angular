@@ -1,4 +1,4 @@
-import { inject, computed, signal } from '@angular/core';
+import { inject, computed, signal, SimpleChange, SimpleChanges } from '@angular/core';
 import { SelectionType } from '@swimlane/ngx-datatable';
 import { ConfirmationService, Confirmation } from '@abp/ng.theme.shared';
 import { ABP, AbpWindowService, ListService, PagedResultDto } from '@abp/ng.core';
@@ -59,7 +59,6 @@ export abstract class AbstractPartViewService {
     if (this.selectedCount() < 1) {
       return;
     }
-
     let message = '::';
     let messageParam = null;
 
@@ -91,7 +90,6 @@ export abstract class AbstractPartViewService {
       this.clearAllSelection();
       return;
     }
-
     if (selected.length === this.data.totalCount) {
       this.allSelected.set(true);
       this.selected.set(selected);
@@ -103,7 +101,7 @@ export abstract class AbstractPartViewService {
     }
 
     if (selected.length === 1) {
-      this.selected.set([...this.selected()]);
+      this.selected.set([...selected]);
       return;
     }
 

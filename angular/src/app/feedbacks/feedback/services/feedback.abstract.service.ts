@@ -49,7 +49,7 @@ export abstract class AbstractFeedbackViewService {
       .warn('::DeleteConfirmationMessage', '::AreYouSure', { messageLocalizationParams: [] })
       .pipe(
         filter(status => status === Confirmation.Status.confirm),
-        switchMap(() => this.proxyService.delete(record.id)),
+        switchMap(() => this.proxyService.delete(record.id))
       )
       .subscribe(this.list.get);
   }
@@ -75,7 +75,7 @@ export abstract class AbstractFeedbackViewService {
       })
       .pipe(
         filter(result => result === Confirmation.Status.confirm),
-        switchMap(() => this.bulkDeleteRequest()),
+        switchMap(() => this.bulkDeleteRequest())
       )
       .subscribe();
   }
@@ -103,6 +103,8 @@ export abstract class AbstractFeedbackViewService {
 
     if (selected.length === 1) {
       this.selected.set([...this.selected()]);
+      console.log(this.selected);
+
       return;
     }
 
@@ -143,9 +145,9 @@ export abstract class AbstractFeedbackViewService {
             downloadToken: token,
             filterText: this.list.filter,
             ...this.filters,
-          }),
+          })
         ),
-        finalize(() => (this.isExportToExcelBusy = false)),
+        finalize(() => (this.isExportToExcelBusy = false))
       )
       .subscribe(result => {
         this.abpWindowService.downloadBlob(result, 'Feedback.xlsx');

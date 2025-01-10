@@ -27,6 +27,16 @@ namespace abp.Feedbacks
         {
 
             Id = id;
+            if (number < FeedbackConsts.numberMinLength)
+            {
+                throw new ArgumentOutOfRangeException(nameof(number), number, "The value of 'number' cannot be lower than " + FeedbackConsts.numberMinLength);
+            }
+
+            if (number > FeedbackConsts.numberMaxLength)
+            {
+                throw new ArgumentOutOfRangeException(nameof(number), number, "The value of 'number' cannot be greater than " + FeedbackConsts.numberMaxLength);
+            }
+
             this.number = number;
             this.name = name;
         }

@@ -25,13 +25,13 @@ namespace abp.EntityFrameworkCore.Domains.Feedbacks
             {
                 // Act
                 var result = await _feedbackRepository.GetListAsync(
-                    name: "6d35dc7ae7fd4b88996c73396e3771453eea209b5119422cbfede6f4aa92794831a56029ea8e455b9d"
+                    name: "bc6f453113db4e65bea53979107dc6eb9b1272be8cf74"
                 );
 
                 // Assert
                 result.Count.ShouldBe(1);
                 result.FirstOrDefault().ShouldNotBe(null);
-                result.First().Id.ShouldBe(Guid.Parse("823af619-ce45-4b57-a37c-a78e18ad7210"));
+                result.First().Id.ShouldBe(Guid.Parse("8a1ce911-301c-491f-9c88-d615260ab197"));
             });
         }
 
@@ -43,7 +43,7 @@ namespace abp.EntityFrameworkCore.Domains.Feedbacks
             {
                 // Act
                 var result = await _feedbackRepository.GetCountAsync(
-                    name: "f37f36a269ad405fbc30c88ea8bb212ada5fbd16bdd0460c89b7b5b7af2b86c58c60dd16450f48d2af734ad54798d055ad3"
+                    name: "c36323f0ecfc40ebaeb99c3458cfe2963ff337867b4c494f9c45a"
                 );
 
                 // Assert

@@ -51,7 +51,12 @@ import { provideHttpClient } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TESTS_TEST_ROUTE_PROVIDER } from './tests/test/providers/test-route.provider';
 import { DateRangeModule, DateInputModule } from '@progress/kendo-angular-dateinputs';
-
+import { ButtonsModule } from '@progress/kendo-angular-buttons';
+import { LayoutModule } from '@progress/kendo-angular-layout';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+import { IconsModule } from '@progress/kendo-angular-icons';
+import { LabelModule } from '@progress/kendo-angular-label';
+import { InputsModule } from '@progress/kendo-angular-inputs';
 registerLocaleData(en);
 
 @NgModule({
@@ -73,6 +78,12 @@ registerLocaleData(en);
     NgbModule,
     DateRangeModule,
     DateInputModule,
+    ButtonsModule,
+    DropDownsModule,
+    LayoutModule,
+    LabelModule,
+    InputsModule,
+    IconsModule,
   ],
   providers: [
     APP_ROUTE_PROVIDER,

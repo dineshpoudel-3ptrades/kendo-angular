@@ -22,6 +22,7 @@ namespace abp.Feedbacks
         public virtual async Task<Feedback> CreateAsync(
         int number, string? name = null)
         {
+            Check.Range(number, nameof(number), FeedbackConsts.numberMinLength, FeedbackConsts.numberMaxLength);
 
             var feedback = new Feedback(
              GuidGenerator.Create(),
@@ -36,6 +37,7 @@ namespace abp.Feedbacks
             int number, string? name = null, [CanBeNull] string? concurrencyStamp = null
         )
         {
+            Check.Range(number, nameof(number), FeedbackConsts.numberMinLength, FeedbackConsts.numberMaxLength);
 
             var feedback = await _feedbackRepository.GetAsync(id);
 

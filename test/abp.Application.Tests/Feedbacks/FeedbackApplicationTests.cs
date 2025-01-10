@@ -29,19 +29,19 @@ namespace abp.Feedbacks
             // Assert
             result.TotalCount.ShouldBe(2);
             result.Items.Count.ShouldBe(2);
-            result.Items.Any(x => x.Id == Guid.Parse("823af619-ce45-4b57-a37c-a78e18ad7210")).ShouldBe(true);
-            result.Items.Any(x => x.Id == Guid.Parse("c1a84ce7-8798-4005-9077-6f83685b82de")).ShouldBe(true);
+            result.Items.Any(x => x.Id == Guid.Parse("8a1ce911-301c-491f-9c88-d615260ab197")).ShouldBe(true);
+            result.Items.Any(x => x.Id == Guid.Parse("99141367-17b1-4312-bd19-bc8848d21095")).ShouldBe(true);
         }
 
         [Fact]
         public async Task GetAsync()
         {
             // Act
-            var result = await _feedbacksAppService.GetAsync(Guid.Parse("823af619-ce45-4b57-a37c-a78e18ad7210"));
+            var result = await _feedbacksAppService.GetAsync(Guid.Parse("8a1ce911-301c-491f-9c88-d615260ab197"));
 
             // Assert
             result.ShouldNotBeNull();
-            result.Id.ShouldBe(Guid.Parse("823af619-ce45-4b57-a37c-a78e18ad7210"));
+            result.Id.ShouldBe(Guid.Parse("8a1ce911-301c-491f-9c88-d615260ab197"));
         }
 
         [Fact]
@@ -50,8 +50,8 @@ namespace abp.Feedbacks
             // Arrange
             var input = new FeedbackCreateDto
             {
-                name = "5aedba9e",
-                number = 39980910
+                name = "43c69dab465d4acbb11a5d07dca398ba0c5f2c906080423ab88486d4d2b93be",
+                number = 792
             };
 
             // Act
@@ -61,8 +61,8 @@ namespace abp.Feedbacks
             var result = await _feedbackRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.name.ShouldBe("5aedba9e");
-            result.number.ShouldBe(39980910);
+            result.name.ShouldBe("43c69dab465d4acbb11a5d07dca398ba0c5f2c906080423ab88486d4d2b93be");
+            result.number.ShouldBe(792);
         }
 
         [Fact]
@@ -71,29 +71,29 @@ namespace abp.Feedbacks
             // Arrange
             var input = new FeedbackUpdateDto()
             {
-                name = "a9faa567052e486c97798cb5b",
-                number = 824487521
+                name = "bc9862e0bd494a058085971080ce72c0755d8cc006ec4a15a7990b074adfa2885858dce7d1674e17",
+                number = 432
             };
 
             // Act
-            var serviceResult = await _feedbacksAppService.UpdateAsync(Guid.Parse("823af619-ce45-4b57-a37c-a78e18ad7210"), input);
+            var serviceResult = await _feedbacksAppService.UpdateAsync(Guid.Parse("8a1ce911-301c-491f-9c88-d615260ab197"), input);
 
             // Assert
             var result = await _feedbackRepository.FindAsync(c => c.Id == serviceResult.Id);
 
             result.ShouldNotBe(null);
-            result.name.ShouldBe("a9faa567052e486c97798cb5b");
-            result.number.ShouldBe(824487521);
+            result.name.ShouldBe("bc9862e0bd494a058085971080ce72c0755d8cc006ec4a15a7990b074adfa2885858dce7d1674e17");
+            result.number.ShouldBe(432);
         }
 
         [Fact]
         public async Task DeleteAsync()
         {
             // Act
-            await _feedbacksAppService.DeleteAsync(Guid.Parse("823af619-ce45-4b57-a37c-a78e18ad7210"));
+            await _feedbacksAppService.DeleteAsync(Guid.Parse("8a1ce911-301c-491f-9c88-d615260ab197"));
 
             // Assert
-            var result = await _feedbackRepository.FindAsync(c => c.Id == Guid.Parse("823af619-ce45-4b57-a37c-a78e18ad7210"));
+            var result = await _feedbackRepository.FindAsync(c => c.Id == Guid.Parse("8a1ce911-301c-491f-9c88-d615260ab197"));
 
             result.ShouldBeNull();
         }

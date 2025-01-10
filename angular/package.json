@@ -8,7 +8,9 @@
     "build:prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "postinstall": "npm run compile:ivy",
+    "compile:ivy": "yarn ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points --tsconfig './tsconfig.prod.json' --source node_modules"
   },
   "private": true,
   "dependencies": {
@@ -36,6 +38,7 @@
     "@progress/kendo-angular-dialog": "^17.2.0",
     "@progress/kendo-angular-dropdowns": "^17.2.0",
     "@progress/kendo-angular-excel-export": "^17.2.0",
+    "@progress/kendo-angular-gantt": "^17.2.0",
     "@progress/kendo-angular-gauges": "^17.2.0",
     "@progress/kendo-angular-grid": "^17.2.0",
     "@progress/kendo-angular-icons": "^17.2.0",
@@ -57,6 +60,7 @@
     "@progress/kendo-angular-upload": "^17.2.0",
     "@progress/kendo-data-query": "^1.7.0",
     "@progress/kendo-drawing": "^1.21.2",
+    "@progress/kendo-react-all": "^9.1.0",
     "@progress/kendo-theme-default": "^10.0.1",
     "@volo/abp.commercial.ng.ui": "~9.0.2",
     "@volo/abp.ng.account": "~9.0.2",

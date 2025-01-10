@@ -126,6 +126,7 @@
   <div class="card">
     <div *ngIf="selectedView === 'Grid'">
       <default-grid
+        [totalCount]="service.data.totalCount"
         [gridData]="service.data.items"
         [gridColumns]="gridColumns"
         [onAdd]="create.bind(this)"

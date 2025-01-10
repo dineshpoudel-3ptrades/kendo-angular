@@ -1,0 +1,45 @@
+<div class="dropstart">
+  <button
+    class="btn btn-icon"
+    id="notificationDropdown"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+    (click)="toggleNotification()"
+  >
+    <i class="bi bi-bell"></i>
+    <span class="translate-middle badge rounded-pill bg-danger"> {{ notifications.length }} </span>
+  </button>
+
+  <div *ngIf="showNotification()" class="notification">
+    <div class="header">
+      <h5 class="notification-header">
+        <i class="fa fa-bell" aria-hidden="true"></i>
+        Notifications
+      </h5>
+      <i class="fa fa-window-close close-btn" aria-hidden="true" (click)="toggleNotification()"></i>
+    </div>
+    <div class="notification-body">
+      <ul *ngIf="notifications.length > 0" class="notification-list">
+        <li
+          class="notification-card"
+          *ngFor="let notification of notifications"
+          (click)="navigateHandler(notification.link)"
+        >
+          <div>
+            <a class="dropdown-item">
+              {{ notification.message }}
+            </a>
+          </div>
+        </li>
+      </ul>
+      <div *ngIf="notifications.length === 0" class="no-notification-card">
+        <p class="dropdown-item">No Notification Available</p>
+      </div>
+    </div>
+    <div>
+      <button class="notificaiton-footer">
+        <a class="dropdown-item text-center" (click)="clearNotifications()"> Clear Notificaiton </a>
+      </button>
+    </div>
+  </div>
+</div>

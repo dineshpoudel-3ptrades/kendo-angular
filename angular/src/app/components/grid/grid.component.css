@@ -6,3 +6,43 @@
 .edit {
   background-color: rgb(49, 49, 207) !important;
 }
+
+.k-grid-toolbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.export-buttons-wrapper {
+  flex: 1;
+  justify-content: end;
+  gap: 5px;
+}
+
+.add-new-wrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.kendo-label {
+  margin-right: 4px;
+}
+
+.command-cell {
+  display: flex;
+  justify-content: center;
+}
+
+.delete-all-button {
+  background-color: red;
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid white;
+}
+
+.delete-all-button:hover {
+  opacity: 0.8;
+  background-color: white;
+  border-color: red;
+  color: black;
+}

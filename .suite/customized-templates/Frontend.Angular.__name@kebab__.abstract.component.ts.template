@@ -1,0 +1,101 @@
+##07116D64E4916FE546C71F78DFBCC54E##
+import { Directive, OnInit, inject  <% if(childEntities.length > 0) { %>, ViewChild <% } %>} from '@angular/core';
+<% if(childEntities.length > 0) { %>
+import {
+  NgbNav,
+  NgbNavItem,
+  NgbNavLink,
+  NgbNavContent,
+  NgbNavOutlet,
+} from '@ng-bootstrap/ng-bootstrap';<% } %>
+import { ListService, TrackByService } from '@abp/ng.core';
+<% for (let e of enums) { %>
+import { <%= camel(e.name) %>Options } from '<%= relativePathFromComponentToEnum(scope, namespace, e) %>';<% } %>
+import type {
+  <%= name %><%= navPropsSuffix %>Dto,
+} from '<%= relativePathFromComponentToModel(scope, namespace) %>';
+import { <%= name %>ViewService } from '../services/<%= kebab(name) %>.service';
+import { <%= name %>DetailViewService } from '../services/<%= kebab(name) %>-detail.service';<% for(child of childEntities) { %>
+import {<%= child.Name %>Component} from '../../<%= kebab(child.Name) %>/components/<%= kebab(child.Name)%>-child.component';
+<% } %>
+
+export const ChildTabDependencies = [<% if(childEntities.length > 0) { %>
+  NgbNav,
+  NgbNavItem,
+  NgbNavLink,
+  NgbNavContent,
+  NgbNavOutlet,<% }%>
+];
+
+export const ChildComponentDependencies = [
+  <%  for(child of childEntities) { %>
+  <%= child.Name %>Component,
+  <% } %>
+];
+
+@Directive({ standalone:true })
+export abstract class Abstract<%= name %>Component implements OnInit {
+  public readonly list = inject(ListService);
+  public readonly track = inject(TrackByService);
+  public readonly service = inject(<%= name %>ViewService);
+  public readonly serviceDetail = inject(<%= name %>DetailViewService);
+  protected title = '<%= resourceName %>::<%= entity.PageTitle || namePlural %>';
+  public gridFilter;
+  public skip = 0;
+  public count = 5;
+  public selectedView: 'List' | 'Grid' = 'Grid';
+
+ viewSelector(view: 'List' | 'Grid') {
+    if (view == 'List') this.service.hookToQuery();
+    this.selectedView = view;
+  }
+
+ dataStateChange(state: any) {
+    this.gridFilter = state;
+    this.count = state.maxResultCount;
+    this.skip = state.skipCount;
+    this.service.hookToQuery(this.gridFilter, this.count, this.skip);
+  }
+
+  <% for (let e of enums) { %>
+  <%= camel(e.name) %>Options = <%= camel(e.name) %>Options;<% } %>
+
+  <% if(childEntities.length > 0) { %>
+  @ViewChild('<%= camel(name)%>Table') table: any;
+  <% } %>
+
+  ngOnInit() {
+    this.service.hookToQuery(this.gridFilter, this.count, this.skip);
+  }
+
+  clearFilters() {
+    this.service.clearFilters();
+  }
+
+  showForm() {
+    this.serviceDetail.showForm();
+  }
+
+  create() {
+    this.serviceDetail.selected = undefined;
+    this.serviceDetail.showForm();
+  }
+
+  update(record: <%= name %><%= navPropsSuffix %>Dto) {
+   this.serviceDetail.update(record)
+  }
+
+  delete(record: <%= name %><%= navPropsSuffix %>Dto) {
+      this.service.delete(record);
+  }
+  <% if(entity.ShouldExportExcel) {%>
+  exportToExcel() {
+    this.service.exportToExcel();
+  }
+  <% } %>
+  <% if(childEntities.length > 0) {%>
+  toggleExpandRow(row) {
+    this.table.rowDetail.toggleExpandRow(row);
+  }
+  <% } %>
+}

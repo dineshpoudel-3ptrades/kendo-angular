@@ -1,3 +1,5 @@
+using abp.TestTemplates;
+using abp.Templates;
 using abp.Tests;
 using abp.Parts;
 using abp.Feedbacks;
@@ -32,6 +34,8 @@ public class abpDbContext :
     ISaasDbContext,
     IIdentityProDbContext
 {
+    public DbSet<TestTemplate> TestTemplates { get; set; } = null!;
+    public DbSet<Template> Templates { get; set; } = null!;
     public DbSet<Test> Tests { get; set; } = null!;
     public DbSet<Part> Parts { get; set; } = null!;
     public DbSet<Feedback> Feedbacks { get; set; } = null!;
@@ -102,13 +106,6 @@ public class abpDbContext :
         //});
         if (builder.IsHostDatabase())
         {
-            builder.Entity<Feedback>(b =>
-            {
-                b.ToTable(abpConsts.DbTablePrefix + "Feedbacks", abpConsts.DbSchema);
-                b.ConfigureByConvention();
-                b.Property(x => x.name).HasColumnName(nameof(Feedback.name));
-                b.Property(x => x.number).HasColumnName(nameof(Feedback.number));
-            });
 
         }
         if (builder.IsHostDatabase())
@@ -131,6 +128,41 @@ public class abpDbContext :
                 b.Property(x => x.name).HasColumnName(nameof(Test.name));
                 b.Property(x => x.Age).HasColumnName(nameof(Test.Age));
                 b.Property(x => x.DOB).HasColumnName(nameof(Test.DOB));
+            });
+
+        }
+        if (builder.IsHostDatabase())
+        {
+            builder.Entity<Template>(b =>
+            {
+                b.ToTable(abpConsts.DbTablePrefix + "Templates", abpConsts.DbSchema);
+                b.ConfigureByConvention();
+                b.Property(x => x.name).HasColumnName(nameof(Template.name));
+                b.Property(x => x.number).HasColumnName(nameof(Template.number));
+                b.Property(x => x.description).HasColumnName(nameof(Template.description));
+            });
+
+        }
+        if (builder.IsHostDatabase())
+        {
+            builder.Entity<TestTemplate>(b =>
+            {
+                b.ToTable(abpConsts.DbTablePrefix + "TestTemplates", abpConsts.DbSchema);
+                b.ConfigureByConvention();
+                b.Property(x => x.name).HasColumnName(nameof(TestTemplate.name));
+                b.Property(x => x.number).HasColumnName(nameof(TestTemplate.number));
+                b.Property(x => x.description).HasColumnName(nameof(TestTemplate.description));
+            });
+
+        }
+        if (builder.IsHostDatabase())
+        {
+            builder.Entity<Feedback>(b =>
+            {
+                b.ToTable(abpConsts.DbTablePrefix + "Feedbacks", abpConsts.DbSchema);
+                b.ConfigureByConvention();
+                b.Property(x => x.name).HasColumnName(nameof(Feedback.name));
+                b.Property(x => x.number).HasColumnName(nameof(Feedback.number)).HasMaxLength(FeedbackConsts.numberMaxLength);
             });
 
         }

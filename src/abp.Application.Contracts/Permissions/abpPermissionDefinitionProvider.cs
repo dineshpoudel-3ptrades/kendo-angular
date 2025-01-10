@@ -31,6 +31,16 @@ public class abpPermissionDefinitionProvider : PermissionDefinitionProvider
         testPermission.AddChild(abpPermissions.Tests.Create, L("Permission:Create"));
         testPermission.AddChild(abpPermissions.Tests.Edit, L("Permission:Edit"));
         testPermission.AddChild(abpPermissions.Tests.Delete, L("Permission:Delete"));
+
+        var templatePermission = myGroup.AddPermission(abpPermissions.Templates.Default, L("Permission:Templates"));
+        templatePermission.AddChild(abpPermissions.Templates.Create, L("Permission:Create"));
+        templatePermission.AddChild(abpPermissions.Templates.Edit, L("Permission:Edit"));
+        templatePermission.AddChild(abpPermissions.Templates.Delete, L("Permission:Delete"));
+
+        var testTemplatePermission = myGroup.AddPermission(abpPermissions.TestTemplates.Default, L("Permission:TestTemplates"));
+        testTemplatePermission.AddChild(abpPermissions.TestTemplates.Create, L("Permission:Create"));
+        testTemplatePermission.AddChild(abpPermissions.TestTemplates.Edit, L("Permission:Edit"));
+        testTemplatePermission.AddChild(abpPermissions.TestTemplates.Delete, L("Permission:Delete"));
     }
 
     private static LocalizableString L(string name)

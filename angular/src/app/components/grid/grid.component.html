@@ -1,8 +1,6 @@
-<app-breadcrumb />
-
 <kendo-grid
+  [loading]="service.isLoading"
   [data]="data"
-  [loading]="service.loading"
   [sortable]="sortable"
   [filterable]="filterable"
   [pageSize]="state.take"
@@ -13,33 +11,172 @@
   [height]="height"
   [groupable]="groupable"
   [selectable]="true"
+  [pageable]="{
+    pageSizes
+  }"
   (selectionChange)="onSelectionChange($event)"
   (edit)="editHandler($event)"
   (remove)="removeHandler($event)"
   (add)="onAdd()"
   (dataStateChange)="onDataStateChange($event)"
+  [selectable]="{ enabled: true, checkboxOnly: true }"
+  kendoGridSelectBy="id"
+  [(selectedKeys)]="mySelection"
+  (selectedKeysChange)="onSelectedKeysChange()"
 >
-  <ng-template kendoGridToolbarTemplate>
-    <button
-      class="add-new"
-      style="background-color: rgb(51, 51, 187)"
-      [style]="{ color: 'white' }"
-      kendoGridAddCommand
-      (click)="onAdd()"
-    >
-      Add new
-    </button>
-    <button class="pdf-export" kendoGridPDFCommand [svgIcon]="filePdfIcon">Export to PDF</button>
-    <button class="excel-export" type="button" kendoGridExcelCommand [svgIcon]="fileExcelIcon">
-      Export to Excel
-    </button>
+  <ng-template class="grid-toolbar-wrapper" *ngIf="showGridToolbar" kendoGridToolbarTemplate>
+    <div class="add-new-wrapper">
+      <button
+        *ngIf="showCreateNew"
+        kendoButton
+        iconClass="fa fa-plus"
+        fillMode="outline"
+        themeColor="primary"
+        kendoGridAddCommand
+        (click)="onAdd()"
+      >
+        Create new
+      </button>
+
+      <div *ngIf="showFilterableButton">
+        <kendo-label text="Filter">
+          <kendo-switch (valueChange)="toggleFilter()"></kendo-switch>
+        </kendo-label>
+      </div>
+    </div>
+
+    <div class="export-buttons-wrapper">
+      <button
+        *ngIf="mySelection.length"
+        kendoButton
+        themeColor="primary"
+        fillMode="outline"
+        iconClass="fa fa-trash"
+        class="delete-all-button"
+        (click)="handleDeleteAll()"
+      >
+        Delete
+      </button>
+
+      <kendo-splitbutton
+        [data]="data"
+        kendoGridPDFCommand
+        fillMode="outline"
+        themeColor="primary"
+        [svgIcon]="filePdfIcon"
+      >
+        Export to PDF
+      </kendo-splitbutton>
+
+      <kendo-splitbutton
+        [data]="data"
+        kendoGridExcelCommand
+        themeColor="primary"
+        fillMode="outline"
+        [svgIcon]="filePdfIcon"
+      >
+        Export to Excel
+      </kendo-splitbutton>
+
+      <kendo-splitbutton
+        *ngIf="showExportJsonButton"
+        [data]="data"
+        themeColor="primary"
+        kendoGridPDFCommand
+        fillMode="outline"
+        [svgIcon]="filePdfIcon"
+      >
+        Export to JSON
+      </kendo-splitbutton>
+
+      <kendo-splitbutton
+        *ngIf="showExportCSVButton"
+        kendoGridPDFCommand
+        themeColor="primary"
+        fillMode="outline"
+        [svgIcon]="filePdfIcon"
+      >
+        Export to CSV
+      </kendo-splitbutton>
+
+      <kendo-splitbutton
+        *ngIf="showImportPartsButton"
+        kendoGridPDFCommand
+        themeColor="primary"
+        fillMode="outline"
+        [svgIcon]="filePdfIcon"
+      >
+        Import Parts
+      </kendo-splitbutton>
+    </div>
   </ng-template>
+
+  <kendo-grid-checkbox-column [width]="40">
+    <ng-template kendoGridHeaderTemplate>
+      <input
+        type="checkbox"
+        kendoCheckBox
+        id="selectAllCheckboxId"
+        kendoGridSelectAllCheckbox
+        [state]="selectAllState"
+        (selectAllChange)="onSelectAllChange($event)"
+      />
+      <label class="k-checkbox-label" for="selectAllCheckboxId"></label>
+    </ng-template>
+  </kendo-grid-checkbox-column>
+
+  <kendo-grid-command-column
+    *ngIf="showCommandCell"
+    [width]="220"
+    title="Action"
+    class="command-cell"
+  >
+    <ng-template kendoGridCellTemplate class="d-flex align-items-center justify-content-center">
+      <div ngbDropdown container="body" class="d-inline-block">
+        <button
+          class="btn btn-primary btn-sm dropdown-toggle"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          ngbDropdownToggle
+        >
+          <i class="fa fa-cog me-1" aria-hidden="true"></i>
+          Actions
+        </button>
+
+        <div ngbDropdownMenu>
+          <button
+            ngbDropdownItem
+            *ngIf="showEditButton"
+            kendoButton
+            iconClass="fa fa-pencil"
+            kendoGridEditCommand
+            (click)="onEdit()"
+          >
+            Edit
+          </button>
+
+          <button
+            ngbDropdownItem
+            kendoButton
+            iconClass="fa fa-trash"
+            [themeColor]="error"
+            *ngIf="showDeleteButton"
+            kendoGridRemoveCommand
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </kendo-grid-command-column>
+
   <kendo-grid-column
     *ngFor="let column of gridColumns"
     [field]="column.field"
     [width]="column.width"
     [format]="column.format"
     [filter]="column.filter"
+    [title]="column.header"
   >
   </kendo-grid-column>
 
@@ -67,5 +204,18 @@
         <div class="footer">Page {{ pageNum }} of {{ totalPages }}</div>
       </div>
     </ng-template>
+
+    <ng-container *ngFor="let column of gridColumns">
+      <kendo-grid-column
+        *ngIf="column.header !== 'action'"
+        [field]="column.field"
+        [width]="column.width"
+        [format]="column.format"
+        [filter]="column.filter"
+        [title]="column.title"
+      >
+      </kendo-grid-column>
+    </ng-container>
   </kendo-grid-pdf>
+  <kendo-grid-excel fileName="Products.xlsx"></kendo-grid-excel>
 </kendo-grid>
